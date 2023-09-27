@@ -1,4 +1,3 @@
-map_topic: '/map'
-path_topic: '/path'
-
+map_topic: "/map"
+path_topic: "/path"
 # Add more parameters here to make the RRT algorithm tunable
