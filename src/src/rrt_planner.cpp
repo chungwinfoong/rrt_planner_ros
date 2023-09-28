@@ -252,7 +252,7 @@ namespace rrt_planner
 
         bool obstacle_found = false;
 
-        for (float step = 0; step < distance; step += (float)0.01)
+        for (float step = 0; step < distance; step += (float)0.5)
         {
           int sub_x = static_cast<int>(tree_node.x() + step * dx);
           int sub_y = static_cast<int>(tree_node.y() + step * dy);
@@ -262,12 +262,12 @@ namespace rrt_planner
             obstacle_found = true;
             break;
           }
+        }
 
-          if (!obstacle_found)
-          {
-            min_distance = distance;
-            nearest_node = tree_node;
-          }
+        if (!obstacle_found)
+        {
+          min_distance = distance;
+          nearest_node = tree_node;
         }
       }
     }

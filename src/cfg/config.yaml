@@ -2,5 +2,5 @@ map_topic: "/map"
 path_topic: "/path"
 # Add more parameters here to make the RRT algorithm tunable
 goal_buffer: 50
-step_size: 50
+step_size: 100
 max_iterations: 5000
