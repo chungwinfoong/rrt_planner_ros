@@ -164,6 +164,8 @@ namespace rrt_planner
     bool goal_received_;
     Point2D goal_;
 
+    std::vector<Point2D> planned_path;
+
     ros::Subscriber map_sub_;
     ros::Subscriber init_pose_sub_;
     ros::Subscriber goal_sub_;

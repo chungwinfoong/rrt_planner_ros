@@ -154,6 +154,12 @@ namespace rrt_planner
     path.header.stamp = ros::Time::now();
 
     // TODO: Fill nav_msgs::Path msg with the path calculated by RRT
+    std::vector<geometry_msgs::PoseStamped> poses;
+    for (int i = 0; i < planned_path.size(); i++)
+    {
+      poses.push_back(pointToPose(planned_path[i]));
+    }
+    path.poses = poses;
 
     // Publish the calculated path
     path_pub_.publish(path);
