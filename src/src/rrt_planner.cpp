@@ -163,9 +163,21 @@ namespace rrt_planner
 
   bool RRTPlanner::isPointUnoccupied(const Point2D &p)
   {
-    // TODO: Fill out this function to check if a given point is occupied/free in the map
+    // Check if a given point is occupied/free in the map
+    cv::Vec3b point = map_->at<cv::Vec3b>(p.x(), p.y());
 
-    return true;
+    if (point == cv::Vec3b(0, 0, 0))
+    {
+      return false;
+    }
+
+    if (point == cv::Vec3b(255, 255, 255))
+    {
+      return true;
+    }
+
+    ROS_WARN("Invalid opencv matrix pixel data.");
+    return false;
   }
 
   void RRTPlanner::buildMapImage()

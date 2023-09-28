@@ -3,6 +3,8 @@
 
 #include <random>
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include <ros/ros.h>
 #include <nav_msgs/OccupancyGrid.h>
