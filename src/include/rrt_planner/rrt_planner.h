@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include <ros/ros.h>
 #include <nav_msgs/OccupancyGrid.h>
@@ -68,7 +69,7 @@ namespace rrt_planner
      *
      * THE CANDIDATE IS REQUIRED TO IMPLEMENT THE LOGIC IN THIS FUNCTION
      */
-    void plan();
+    void plan(int goal_buffer, int step_size, int max_iterations);
 
     /**
      * Callback for map subscriber
@@ -86,6 +87,14 @@ namespace rrt_planner
     void goalCallback(const geometry_msgs::PoseStamped::ConstPtr &);
 
   private:
+    float calculatePointDistance(Point2D point1, Point2D point2);
+
+    Point2D findNearestBacktrackNode(std::vector<Point2D> &tree, Point2D point);
+
+    Point2D findNearestNode(std::vector<Point2D> &tree, Point2D point);
+
+    Point2D extendTree(std::vector<Point2D> &tree, Point2D &nearest_node, Point2D &random_point, int step_size);
+
     /**
      * Publishes the path calculated by RRT as a nav_msgs::Path msg
      *
@@ -101,6 +110,8 @@ namespace rrt_planner
      * THE CANDIDATE IS REQUIRED TO IMPLEMENT THE LOGIC IN THIS FUNCTION
      */
     bool isPointUnoccupied(const Point2D &p);
+
+    bool isPointBacktrackNode(const Point2D &p);
 
     /**
      * Utility function to build a CV::Mat from a nav_msgs::OccupancyGrid for display
