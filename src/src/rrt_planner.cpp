@@ -170,8 +170,8 @@ namespace rrt_planner
     goal_received_ = false;
     init_pose_received_ = false;
 
-    // TODO: Fill out this function with the RRT algorithm logic to plan a collision-free
-    //       path through the map starting from the initial pose and ending at the goal pose
+    // Fill out this function with the RRT algorithm logic to plan a collision-free
+    // path through the map starting from the initial pose and ending at the goal pose
 
     std::vector<Point2D> tree;
     tree.push_back(init_pose_);
@@ -207,24 +207,27 @@ namespace rrt_planner
 
         if (distance_to_goal < goal_buffer)
         {
-          // Backtrack to construct the path
-          Point2D current_node = new_node;
+          // TODO: Fix up backtracking algorithm
 
-          while ((current_node.x() != init_pose_.x()) || (current_node.y() != init_pose_.y()))
-          {
-            planned_path.push_back(current_node);
-            Point2D next_node = findNearestBacktrackNode(tree, current_node);
-            drawLine(current_node, next_node, cv::Scalar(255, 0, 0), 2);
-            current_node = next_node;
-            publishPath();
-          }
-          planned_path.push_back(init_pose_);
+          // // Backtrack to construct the path
+          // Point2D current_node = new_node;
 
-          // Reverse the path to start from the initial pose
-          std::reverse(planned_path.begin(), planned_path.end());
+          // while ((current_node.x() != init_pose_.x()) || (current_node.y() != init_pose_.y()))
+          // {
+          //   planned_path.push_back(current_node);
+          //   Point2D next_node = findNearestBacktrackNode(tree, current_node);
+          //   drawLine(current_node, next_node, cv::Scalar(255, 0, 0), 2);
+          //   current_node = next_node;
 
-          planned_path.push_back(goal_);
-          planned_path.push_back(new_node); // Add the final goal node
+          //   publishPath();
+          // }
+          // planned_path.push_back(init_pose_);
+
+          // // Reverse the path to start from the initial pose
+          // std::reverse(planned_path.begin(), planned_path.end());
+
+          // planned_path.push_back(goal_);
+          // planned_path.push_back(new_node); // Add the final goal node
 
           return;
         }
@@ -300,12 +303,12 @@ namespace rrt_planner
             obstacle_found = true;
             break;
           }
+        }
 
-          if (!obstacle_found)
-          {
-            min_distance = distance;
-            nearest_node = tree_node;
-          }
+        if (!obstacle_found)
+        {
+          min_distance = distance;
+          nearest_node = tree_node;
         }
       }
     }
@@ -338,7 +341,7 @@ namespace rrt_planner
     path.header.frame_id = map_grid_->header.frame_id;
     path.header.stamp = ros::Time::now();
 
-    // TODO: Fill nav_msgs::Path msg with the path calculated by RRT
+    // Fill nav_msgs::Path msg with the path calculated by RRT
     std::vector<geometry_msgs::PoseStamped> poses;
     for (int i = 0; i < planned_path.size(); i++)
     {
