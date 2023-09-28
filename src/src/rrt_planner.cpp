@@ -290,7 +290,7 @@ namespace rrt_planner
 
         bool obstacle_found = false;
 
-        for (float step = 0; step < distance; step += (float)1)
+        for (float step = 0; step < distance; step += (float)0.5)
         {
           int sub_x = static_cast<int>(tree_node.x() + step * dx);
           int sub_y = static_cast<int>(tree_node.y() + step * dy);
